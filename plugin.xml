@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+         <!--
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.cdt.core.dom.ast.IASTNameOwner"
+            id="VOD_Condition_Generator.contribution1">
+         <menu
+               label="OpenMP C Analyzer"
+               path="additions"
+               id="VOD_Condition_Generator.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               label="Generate Variable-oriented-DAG Conditions..."
+               class="ompca.vopcg.popup.actions.GenerateVODCondsAction"
+               menubarPath="VOD_Condition_Generator.menu1/group1"
+               enablesFor="1"
+               id="VOD_Condition_Generator.newAction">
+         </action>
+      </objectContribution>
+      
+      ﻿<viewerContribution 
+      		id="VOD_Condition_Generator.contribution2"
+      		targetID="#CEditorContext">
+         <action
+               label="Generate Variable-oriented-DAG Conditions..."
+               class="ompca.vopcg.popup.actions.GenerateVODCondsAction"
+               menubarPath="additions"
+               id="VOD_Condition_Generator.newAction">
+﻿    <visibleWhen>
+       <with variable="selection">
+          <instanceof value="org.eclipse.jface.text.ITextSelection"/>
+       </with>
+    </visibleWhen>
+             </action>
+   </viewerContribution> 
+   </extension>
+      -->
+   
+	﻿<extension point="org.eclipse.ui.commands">
+	    <command id="ompca.vodcg.ui.commands.GenerateVODConds"
+	            defaultHandler="ompca.vodcg.ui.GenerateVODCondsHandler"
+	            name="Generate VOD Conditions..."
+	            description="Generate Variable-oriented-path Conditions" />
+	    <command id="ompca.vodcg.ui.commands.SolveVODConds"
+	            defaultHandler="ompca.vodcg.ui.SolveVODCondsHandler"
+	            name="Solve Generated VOD Conditions..."
+	            description="Solve Generated Variable-oriented-path Conditions" />
+	</extension>
+	
+	<extension point="org.eclipse.ui.menus">
+	    <menuContribution locationURI="popup:#CEditorContext?after=additions">
+	        <command commandId="ompca.vodcg.ui.commands.GenerateVODConds"
+	                mnemonic="G" >
+			    <visibleWhen>
+			       <with variable="selection">
+			       	<and>
+			          <instanceof value="org.eclipse.jface.text.ITextSelection"/>
+			          <!-- instanceof value="org.eclipse.cdt.core.dom.ast.IASTName"/ -->
+﻿				      <!-- adapt type="org.eclipse.cdt.core.dom.ast.IASTName"/ -->
+			       	</and>
+			       </with>
+			    </visibleWhen>
+			</command>
+	        <command commandId="ompca.vodcg.ui.commands.SolveVODConds"
+	                mnemonic="S" >
+			    <visibleWhen>
+			       <with variable="selection">
+			       	<and>
+			          <instanceof value="org.eclipse.jface.text.ITextSelection"/>
+			       	</and>
+			       </with>
+			    </visibleWhen>
+			</command>
+	    </menuContribution>
+	</extension>
+
+<!--
+	<extension point="org.eclipse.ui.handlers">
+	  <handler commandId="ompca.vopcg.ui.commands.GenerateVODConds"
+	      class="ompca.vopcg.ui.GenerateVODCondsHandler">
+	    <enabledWhen>
+	    <not>
+	      <count value="0" />
+	    </not>
+	    </enabledWhen>
+	    <activeWhen>
+	    <with variable="activePartId">
+	      <equals value="org.eclipse.ui.views.ProblemView" />
+	    </with>
+	  </activeWhen>
+	    </handler>
+	</extension>
+-->
+
+
+
+   <extension
+         point="org.eclipse.cdt.core.CIndex">
+   </extension>
+
+</plugin>
